@@ -115,9 +115,11 @@ namespace TravelBookingApp.Infrastructure.Services
 
                 // Get city code (in a real application, you might need to look up the city code first)
                 string cityCode = await GetCityCodeAsync(city);
+                
+                // https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=BLR
 
                 var request = new HttpRequestMessage(HttpMethod.Get,
-                    $"shopping/hotel-offers?cityCode={cityCode}&checkInDate={checkInStr}&checkOutDate={checkOutStr}&adults=1");
+                    $"reference-data/locations/hotels/by-city?cityCode{cityCode}");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var response = await _httpClient.SendAsync(request);
